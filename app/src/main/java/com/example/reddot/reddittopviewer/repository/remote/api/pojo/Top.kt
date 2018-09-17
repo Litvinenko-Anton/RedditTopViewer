@@ -1,51 +1,51 @@
-package com.example.reddot.reddittopviewer.model.pojo
+package com.example.reddot.reddittopviewer.repository.remote.api.pojo
 
 import com.google.gson.annotations.SerializedName
 
 
 data class Top(
-        @SerializedName("kind") val kind: String,
+        @SerializedName("kind") val kind: String?,
         @SerializedName("data") val data: Data
 )
 
 data class Data(
-        @SerializedName("modhash") val modhash: String,
+        @SerializedName("modhash") val modhash: String?,
         @SerializedName("dist") val dist: Int,
         @SerializedName("children") val children: List<Children>,
-        @SerializedName("after") val after: String,
+        @SerializedName("after") val after: String?,
         @SerializedName("before") val before: String?
 )
 
 data class Children(
-        @SerializedName("kind") val kind: String,
+        @SerializedName("kind") val kind: String?,
         @SerializedName("data") val data: PostData
 )
 
 data class PostData(
         @SerializedName("approved_at_utc") val approvedAtUtc: Any?,
-        @SerializedName("subreddit") val subreddit: String,
-        @SerializedName("selftext") val selftext: String,
-        @SerializedName("author_fullname") val authorFullname: String,
+        @SerializedName("subreddit") val subreddit: String?,
+        @SerializedName("selftext") val selftext: String?,
+        @SerializedName("author_fullname") val authorFullname: String?,
         @SerializedName("saved") val saved: Boolean,
         @SerializedName("mod_reason_title") val modReasonTitle: String?,
         @SerializedName("gilded") val gilded: Int,
         @SerializedName("clicked") val clicked: Boolean,
-        @SerializedName("title") val title: String,
+        @SerializedName("title") val title: String?,
         @SerializedName("link_flair_richtext") val linkFlairRichtext: List<Any>,
-        @SerializedName("subreddit_name_prefixed") val subredditNamePrefixed: String,
+        @SerializedName("subreddit_name_prefixed") val subredditNamePrefixed: String?,
         @SerializedName("hidden") val hidden: Boolean,
         @SerializedName("pwls") val pwls: Int,
         @SerializedName("link_flair_css_class") val linkFlairCssClass: String?,
         @SerializedName("downs") val downs: Int,
         @SerializedName("thumbnail_height") val thumbnailHeight: Int,
         @SerializedName("hide_score") val hideScore: Boolean,
-        @SerializedName("name") val name: String,
+        @SerializedName("name") val name: String?,
         @SerializedName("quarantine") val quarantine: Boolean,
-        @SerializedName("link_flair_text_color") val linkFlairTextColor: String,
+        @SerializedName("link_flair_text_color") val linkFlairTextColor: String?,
         @SerializedName("author_flair_background_color") val authorFlairBackgroundColor: Any?,
-        @SerializedName("subreddit_type") val subredditType: String,
+        @SerializedName("subreddit_type") val subredditType: String?,
         @SerializedName("ups") val ups: Int,
-        @SerializedName("domain") val domain: String,
+        @SerializedName("domain") val domain: String?,
         @SerializedName("media_embed") val mediaEmbed: MediaEmbed,
         @SerializedName("thumbnail_width") val thumbnailWidth: Int,
         @SerializedName("author_flair_template_id") val authorFlairTemplateId: Any?,
@@ -60,19 +60,19 @@ data class PostData(
         @SerializedName("can_mod_post") val canModPost: Boolean,
         @SerializedName("score") val score: Int,
         @SerializedName("approved_by") val approvedBy: Any?,
-        @SerializedName("thumbnail") val thumbnail: String,
-        @SerializedName("edited") val edited: Boolean,
+        @SerializedName("thumbnail") val thumbnail: String?,
+        @SerializedName("edited") val edited: String?,
         @SerializedName("author_flair_css_class") val authorFlairCssClass: Any?,
         @SerializedName("author_flair_richtext") val authorFlairRichtext: List<Any>,
-        @SerializedName("post_hint") val postHint: String,
+        @SerializedName("post_hint") val postHint: String?,
         @SerializedName("content_categories") val contentCategories: Any?,
         @SerializedName("is_self") val isSelf: Boolean,
         @SerializedName("mod_note") val modNote: Any?,
         @SerializedName("created") val created: Int,
-        @SerializedName("link_flair_type") val linkFlairType: String,
+        @SerializedName("link_flair_type") val linkFlairType: String?,
         @SerializedName("wls") val wls: Int,
         @SerializedName("banned_by") val bannedBy: Any?,
-        @SerializedName("author_flair_type") val authorFlairType: String,
+        @SerializedName("author_flair_type") val authorFlairType: String?,
         @SerializedName("contest_mode") val contestMode: Boolean,
         @SerializedName("selftext_html") val selftextHtml: Any?,
         @SerializedName("likes") val likes: Any?,
@@ -94,25 +94,25 @@ data class PostData(
         @SerializedName("visited") val visited: Boolean,
         @SerializedName("num_reports") val numReports: Any?,
         @SerializedName("distinguished") val distinguished: Any?,
-        @SerializedName("subreddit_id") val subredditId: String,
+        @SerializedName("subreddit_id") val subredditId: String?,
         @SerializedName("mod_reason_by") val modReasonBy: Any?,
         @SerializedName("removal_reason") val removalReason: Any?,
-        @SerializedName("link_flair_background_color") val linkFlairBackgroundColor: String,
-        @SerializedName("id") val id: String,
+        @SerializedName("link_flair_background_color") val linkFlairBackgroundColor: String?,
+        @SerializedName("id") val id: String?,
         @SerializedName("report_reasons") val reportReasons: Any?,
-        @SerializedName("author") val author: String,
+        @SerializedName("author") val author: String?,
         @SerializedName("num_crossposts") val numCrossposts: Int,
         @SerializedName("num_comments") val numComments: Int,
         @SerializedName("send_replies") val sendReplies: Boolean,
-        @SerializedName("whitelist_status") val whitelistStatus: String,
+        @SerializedName("whitelist_status") val whitelistStatus: String?,
         @SerializedName("mod_reports") val modReports: List<Any>,
         @SerializedName("author_flair_text_color") val authorFlairTextColor: Any?,
-        @SerializedName("permalink") val permalink: String,
-        @SerializedName("parent_whitelist_status") val parentWhitelistStatus: String,
+        @SerializedName("permalink") val permalink: String?,
+        @SerializedName("parent_whitelist_status") val parentWhitelistStatus: String?,
         @SerializedName("stickied") val stickied: Boolean,
-        @SerializedName("url") val url: String,
+        @SerializedName("url") val url: String?,
         @SerializedName("subreddit_subscribers") val subredditSubscribers: Int,
-        @SerializedName("created_utc") val createdUtc: Int,
+        @SerializedName("created_utc") val createdUtc: Long,
         @SerializedName("media") val media: Any?,
         @SerializedName("is_video") val isVideo: Boolean
 )
@@ -127,33 +127,33 @@ data class Image(
         @SerializedName("source") val source: Source,
         @SerializedName("resolutions") val resolutions: List<Resolution>,
         @SerializedName("variants") val variants: Variants,
-        @SerializedName("id") val id: String
+        @SerializedName("id") val id: String?
 )
 
 data class RedditVideoPreview(
-        @SerializedName("fallback_url") val fallbackUrl: String,
+        @SerializedName("fallback_url") val fallbackUrl: String?,
         @SerializedName("height") val height: Int,
         @SerializedName("width") val width: Int,
-        @SerializedName("scrubber_media_url") val scrubberMediaUrl: String,
-        @SerializedName("dash_url") val dashUrl: String,
+        @SerializedName("scrubber_media_url") val scrubberMediaUrl: String?,
+        @SerializedName("dash_url") val dashUrl: String?,
         @SerializedName("duration") val duration: Int,
-        @SerializedName("hls_url") val hlsUrl: String,
+        @SerializedName("hls_url") val hlsUrl: String?,
         @SerializedName("is_gif") val isGif: Boolean,
-        @SerializedName("transcoding_status") val transcodingStatus: String
+        @SerializedName("transcoding_status") val transcodingStatus: String?
 )
 
 data class MediaEmbed(
-        @SerializedName("content") val content: String,
+        @SerializedName("content") val content: String?,
         @SerializedName("width") val width: Int,
         @SerializedName("scrolling") val scrolling: Boolean,
         @SerializedName("height") val height: Int
 )
 
 data class SecureMediaEmbed(
-        @SerializedName("content") val content: String,
+        @SerializedName("content") val content: String?,
         @SerializedName("width") val width: Int,
         @SerializedName("scrolling") val scrolling: Boolean,
-        @SerializedName("media_domain_url") val mediaDomainUrl: String,
+        @SerializedName("media_domain_url") val mediaDomainUrl: String?,
         @SerializedName("height") val height: Int
 )
 
@@ -163,7 +163,7 @@ data class Variants(
 )
 
 data class Source(
-        @SerializedName("url") val url: String,
+        @SerializedName("url") val url: String?,
         @SerializedName("width") val width: Int,
         @SerializedName("height") val height: Int
 )
@@ -174,7 +174,7 @@ data class Gif(
 )
 
 data class Resolution(
-        @SerializedName("url") val url: String,
+        @SerializedName("url") val url: String?,
         @SerializedName("width") val width: Int,
         @SerializedName("height") val height: Int
 )

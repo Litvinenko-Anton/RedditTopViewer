@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="thumb_size">150dp</dimen>
+    <dimen name="avatar_size">50dp</dimen>
+
+    <dimen name="activity_margin_4">4dp</dimen>
+    <dimen name="activity_margin_8">8dp</dimen>
+    <dimen name="activity_margin_12">12dp</dimen>
+    <dimen name="activity_margin_16">16dp</dimen>
+
+
+
+</resources>
