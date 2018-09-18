@@ -36,6 +36,7 @@ dependencies {
     implementation "com.android.support:appcompat-v7:$support_version"
     implementation "com.android.support:recyclerview-v7:$support_version"
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation 'com.android.support:customtabs:28.0.0-rc02'
 
     // MVP Moxy
     implementation "com.arello-mobile:moxy:$moxy_version"

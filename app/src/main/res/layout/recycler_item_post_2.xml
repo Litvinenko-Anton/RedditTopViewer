@@ -63,6 +63,9 @@
             android:id="@+id/iv_thumb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            tools:layout_width="100dp"
+            tools:layout_height="100dp"
+
             android:layout_below="@+id/tv_title"
             android:layout_marginBottom="@dimen/activity_margin_12"
             android:adjustViewBounds="true"

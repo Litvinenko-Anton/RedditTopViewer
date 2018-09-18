@@ -1,10 +1,11 @@
 package com.example.reddot.reddittopviewer.tools.extensions
 
-import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
+import android.support.customtabs.CustomTabsIntent
 import com.example.reddot.reddittopviewer.repository.remote.api.pojo.ArticleModel
-import java.util.*
 
 fun sharedContent(context: Context, model: ArticleModel) {
     sharedContent(context, "Share ", "${model.title}\n${model.url}")
@@ -20,4 +21,3 @@ fun sharedContent(context: Context, subject: String, content: String) {
     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
     context.startActivity(intent)
 }
-

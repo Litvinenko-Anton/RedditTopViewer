@@ -139,7 +139,7 @@ class PostAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(), OnPaginatio
             holder.commentsCount.text = model.numComments.toString()
             holder.thumbnail.loadUrl(model.url, requestOptions)
             holder.time.text = model.createdUtc.getTimeAgo()
-            rxViewClicks(position, model, holder.title)
+            rxViewClicks(position, model, holder.title, holder.thumbnail)
         }
     }
 
@@ -159,7 +159,7 @@ class PostAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(), OnPaginatio
         for (view in views) {
             RxView.clicks(view)
                     .map<ClickItemModel> { ClickItemModel(view.id, position, model) }
-                    .subscribe { clickSubject }
+                    .subscribe (clickSubject)
         }
     }
 }
