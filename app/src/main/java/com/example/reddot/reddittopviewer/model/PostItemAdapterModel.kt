@@ -1,8 +1,8 @@
-package com.example.reddot.reddittopviewer.ui.adapter
+package com.example.reddot.reddittopviewer.model
 
 import com.example.reddot.reddittopviewer.repository.remote.api.pojo.PostData
 
-class PostModelAdapterItem(
+class PostItemAdapterModel(
         val type: Int = POST,
         val error: String = "",
         val post: PostData? = null) {

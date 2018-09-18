@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">RedditTopViewer</string>
+    <string name="app_name">RedditTop50</string>
     <string name="some_error">Some error</string>
     <string name="try_again">Try again</string>
 </resources>

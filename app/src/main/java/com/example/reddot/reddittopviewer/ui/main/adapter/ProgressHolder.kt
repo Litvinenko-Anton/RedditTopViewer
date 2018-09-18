@@ -1,4 +1,4 @@
-package com.example.reddot.reddittopviewer.ui.adapter
+package com.example.reddot.reddittopviewer.ui.main.adapter
 
 import android.support.v7.widget.RecyclerView
 import android.view.View

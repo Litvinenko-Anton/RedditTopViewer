@@ -7,12 +7,15 @@ import android.widget.LinearLayout
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.example.reddot.reddittopviewer.R
 import com.example.reddot.reddittopviewer.model.ClickItemModel
+import com.example.reddot.reddittopviewer.repository.remote.api.pojo.PostData
 import com.example.reddot.reddittopviewer.tools.Constants.BASE_URL
-import com.example.reddot.reddittopviewer.ui.adapter.EndlessRecyclerViewScrollListener
-import com.example.reddot.reddittopviewer.ui.adapter.PostAdapter
+import com.example.reddot.reddittopviewer.tools.EndlessRecyclerViewScrollListener
 import com.example.reddot.reddittopviewer.ui.base.BaseActivity
+import com.example.reddot.reddittopviewer.ui.main.adapter.PostAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import openChromeCustomTabs
+import sharedContentIntent
+import showToast
 
 class MainActivity : BaseActivity(), MainView {
 
@@ -58,8 +61,7 @@ class MainActivity : BaseActivity(), MainView {
 
     private fun initSwipeView() {
         swipe_refresh.setOnRefreshListener {
-            adapter?.skipList()
-            mainPresenter.loadFirstPosts()
+            retryLoadPost()
         }
     }
 
@@ -69,10 +71,22 @@ class MainActivity : BaseActivity(), MainView {
 
     private fun onItemClick(clickItem: ClickItemModel) {
         when (clickItem.id) {
-            R.id.iv_thumb -> openChromeCustomTabs(BASE_URL + clickItem.model.permalink)
-//            R.id.shareImageButton -> sharedContent(context!!, clickItem.model)
-//            R.id.parentView -> showToast(clickItem.model.title)
+            R.id.ib_browser -> openChromeCustomTabs(BASE_URL + clickItem.model?.permalink)
+            R.id.tv_likes_count -> showToast("${clickItem.model?.score} pts")
+            R.id.ib_likes -> showToast("Like it!")
+            R.id.ib_dislikes -> showToast("Dislike it!")
+            R.id.ib_share -> sharedContentIntent(getSharedContent(clickItem.model))
+            R.id.btn_try_again -> retryLoadPost()
         }
+    }
+
+    private fun retryLoadPost() {
+        adapter?.skipList()
+        mainPresenter.loadFirstPosts()
+    }
+
+    private fun getSharedContent(model: PostData?): String {
+        return "${model?.title}\n${BASE_URL + model?.permalink}"
     }
 
 }

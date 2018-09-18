@@ -1,4 +1,4 @@
-package com.example.reddot.reddittopviewer.ui.adapter
+package com.example.reddot.reddittopviewer.tools
 
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager

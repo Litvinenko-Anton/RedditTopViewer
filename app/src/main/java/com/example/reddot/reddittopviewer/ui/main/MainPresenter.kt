@@ -2,8 +2,8 @@ package com.example.reddot.reddittopviewer.ui.main
 
 import com.arellomobile.mvp.InjectViewState
 import com.example.reddot.reddittopviewer.tools.Constants.POST_LIMIT
-import com.example.reddot.reddittopviewer.ui.adapter.PostAdapter
 import com.example.reddot.reddittopviewer.ui.base.BasePresenter
+import com.example.reddot.reddittopviewer.ui.main.adapter.PostAdapter
 
 
 @InjectViewState

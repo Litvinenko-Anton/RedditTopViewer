@@ -8,6 +8,10 @@
     <dimen name="activity_margin_12">12dp</dimen>
     <dimen name="activity_margin_16">16dp</dimen>
 
+    <dimen name="activity_padding_8">8dp</dimen>
+    <dimen name="activity_padding_16">16dp</dimen>
+
+
 
 
 </resources>

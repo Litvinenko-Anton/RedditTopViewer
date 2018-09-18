@@ -1,4 +1,3 @@
-
 import android.support.annotation.DrawableRes
 import android.support.annotation.RawRes
 import android.view.LayoutInflater
@@ -53,7 +52,10 @@ fun ImageView.loadUrl(url: String?) {
 }
 
 fun ImageView.loadUrl(url: String?, requestOptions: RequestOptions) {
-    Glide.with(context).load(url).apply(requestOptions).into(this)
+    if (url != null)
+        Glide.with(context).load(url).apply(requestOptions).into(this)
+    else
+        setImageDrawable(null)
 }
 
 fun ImageView.loadRes(@RawRes @DrawableRes idRes: Int) {
