@@ -10,7 +10,7 @@ private const val DAYS = "d. ago"
 private const val UNKNOWN = "Unknown time"
 
 @SuppressLint("DefaultLocale")
-fun Long.getTimeAgo(): String {
+fun Long?.getTimeAgo(): String {
     if (this == null) return UNKNOWN
     var different = Date().time - this * 1000L //different milliseconds
     val secondsInMilli: Long = 1000

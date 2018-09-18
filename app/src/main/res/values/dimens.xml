@@ -10,8 +10,7 @@
 
     <dimen name="activity_padding_8">8dp</dimen>
     <dimen name="activity_padding_16">16dp</dimen>
-
-
+    <dimen name="error_img_size">200dp</dimen>
 
 
 </resources>

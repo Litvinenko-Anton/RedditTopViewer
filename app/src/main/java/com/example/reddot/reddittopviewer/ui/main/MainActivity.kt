@@ -9,6 +9,7 @@ import com.example.reddot.reddittopviewer.R
 import com.example.reddot.reddittopviewer.model.ClickItemModel
 import com.example.reddot.reddittopviewer.repository.remote.api.pojo.PostData
 import com.example.reddot.reddittopviewer.tools.Constants.BASE_URL
+import com.example.reddot.reddittopviewer.tools.Constants.POST_LIMIT
 import com.example.reddot.reddittopviewer.tools.EndlessRecyclerViewScrollListener
 import com.example.reddot.reddittopviewer.ui.base.BaseActivity
 import com.example.reddot.reddittopviewer.ui.main.adapter.PostAdapter
@@ -29,7 +30,6 @@ class MainActivity : BaseActivity(), MainView {
         initRecyclerView()
         initSwipeView()
         swipe_refresh.isRefreshing = true
-        mainPresenter.loadFirstPosts()
     }
 
     override fun initAdapter(adapter: PostAdapter) {
@@ -51,7 +51,8 @@ class MainActivity : BaseActivity(), MainView {
             val scrollListener = object : EndlessRecyclerViewScrollListener(lm) {
                 // Scroll to loadMore
                 override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView?) {
-                    mainPresenter.loadMorePosts()
+                    if (totalItemsCount % POST_LIMIT == 0)
+                        mainPresenter.loadPosts()
                 }
             }
             layoutManager = lm
@@ -61,7 +62,7 @@ class MainActivity : BaseActivity(), MainView {
 
     private fun initSwipeView() {
         swipe_refresh.setOnRefreshListener {
-            retryLoadPost()
+            mainPresenter.loadPosts()
         }
     }
 
@@ -69,21 +70,25 @@ class MainActivity : BaseActivity(), MainView {
         addDisposables(adapter.clickEvent.subscribe { onItemClick(it) })
     }
 
+    override fun responseError(errorMessage: String) {
+        val position = adapter?.itemCount ?: 0
+        rv_posts?.scrollToPosition(position - 1)
+    }
+
     private fun onItemClick(clickItem: ClickItemModel) {
         when (clickItem.id) {
+            R.id.tv_title,
+            R.id.iv_thumb,
             R.id.ib_browser -> openChromeCustomTabs(BASE_URL + clickItem.model?.permalink)
             R.id.tv_likes_count -> showToast("${clickItem.model?.score} pts")
             R.id.ib_likes -> showToast("Like it!")
             R.id.ib_dislikes -> showToast("Dislike it!")
             R.id.ib_share -> sharedContentIntent(getSharedContent(clickItem.model))
-            R.id.btn_try_again -> retryLoadPost()
+            R.id.btn_try_again -> mainPresenter.loadPosts()
+
         }
     }
 
-    private fun retryLoadPost() {
-        adapter?.skipList()
-        mainPresenter.loadFirstPosts()
-    }
 
     private fun getSharedContent(model: PostData?): String {
         return "${model?.title}\n${BASE_URL + model?.permalink}"

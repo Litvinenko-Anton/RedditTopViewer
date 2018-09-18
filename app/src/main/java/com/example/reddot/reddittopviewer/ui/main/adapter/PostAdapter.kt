@@ -1,6 +1,9 @@
 package com.example.reddot.reddittopviewer.ui.main.adapter
 
+import android.os.Build
 import android.support.v7.widget.RecyclerView
+import android.text.Html
+import android.text.Spanned
 import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -17,7 +20,9 @@ import inflate
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import isGone
+import loadRes
 import loadUrl
+
 
 class PostAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(), OnPagination<Data> {
 
@@ -36,6 +41,7 @@ class PostAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(), OnPaginatio
         if (itemsList.isNotEmpty()) {
             checkLastItemType()
             itemsList.add(PostItemAdapterModel(type = PostItemAdapterModel.PROGRESS))
+            notifyItemInserted(itemsList.lastIndex)
         }
     }
 
@@ -52,20 +58,18 @@ class PostAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(), OnPaginatio
     override fun onError(errorMessage: String) {
         checkLastItemType()
         itemsList.add(PostItemAdapterModel(PostItemAdapterModel.ERROR, errorMessage))
-        notifyItemInserted(itemsList.size - 1)
+        notifyItemInserted(itemsList.lastIndex)
     }
 
     override fun skipList() {
-        val count = itemsList.size
         after = null
+        notifyItemRangeRemoved(0, itemsList.size)
         itemsList.clear()
-        notifyItemRangeRemoved(0, count)
     }
 
     override fun setupList(newData: Data?) {
         itemsList.clear()
-        after = newData?.after
-        insertedItemRange(newData)
+        updateList(newData)
     }
 
     override fun updateList(newData: Data?) {
@@ -83,7 +87,7 @@ class PostAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(), OnPaginatio
         return when (viewType) {
             PostItemAdapterModel.PROGRESS -> ProgressHolder(parent.inflate(R.layout.recycler_item_progress))
             PostItemAdapterModel.ERROR -> ErrorHolder(parent.inflate(R.layout.recycler_item_error))
-            else -> PostHolder(parent.inflate(R.layout.recycler_item_post_2))
+            else -> PostHolder(parent.inflate(R.layout.recycler_item_post))
         }
     }
 
@@ -112,7 +116,7 @@ class PostAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(), OnPaginatio
 
 
     private fun removeLastItem() {
-        if (itemsList.size > 0) {
+        if (itemsList.isNotEmpty()) {
             val lastIndex = itemsList.lastIndex
             itemsList.removeAt(lastIndex)
             notifyItemRemoved(lastIndex)
@@ -121,17 +125,16 @@ class PostAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(), OnPaginatio
 
     private fun insertedItemRange(newData: Data?) {
         newData?.let {
-            val from = if (itemsList.size > 0) itemsList.size - 1 else 0
-            val count = newData.children.size
+            val from = if (itemsList.isNotEmpty()) itemsList.size else 0
             newData.children.forEach { children ->
                 itemsList.add(PostItemAdapterModel(post = children.data))
+                notifyItemInserted(from + 1)
             }
-            notifyItemRangeInserted(from, count)
         }
     }
 
     private fun isLastItemNotPostData(): Boolean {
-        return itemsList.size > 0 && itemsList[itemsList.lastIndex].type != PostItemAdapterModel.POST
+        return itemsList.isNotEmpty() && itemsList.last().type != PostItemAdapterModel.POST
     }
 
     private fun bindProgressView(holder: ProgressHolder, position: Int) {
@@ -140,8 +143,8 @@ class PostAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(), OnPaginatio
 
     private fun bindPostView(holder: PostHolder, position: Int, model: PostData?) {
         model?.let {
-            val thumbnailUrl = model.url ?: getThumbnail(model)
-            holder.thumbnail.isGone = thumbnailUrl == null
+            val thumbnailUrl = getThumbnail(model)
+            holder.thumbnail.isGone = thumbnailUrl.isNullOrEmpty()
             holder.thumbnail.loadUrl(thumbnailUrl, requestOptions)
 
             holder.title.text = model.title
@@ -156,20 +159,40 @@ class PostAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(), OnPaginatio
         }
     }
 
-    private fun getThumbnail(model: PostData) : String? {
-        var thumbnail : String? = null
-        if (model.preview.images?.isNotEmpty()!!)
-            model.preview.images[0].resolutions?.forEach {
-                if(it.height >= THUMBNAIL_WIDTH)
-                    thumbnail = it.url
-            }
-        return thumbnail ?: model.thumbnail
-    }
-
     private fun bindErrorView(holder: ErrorHolder, position: Int, errorMessage: String, post: PostData?) {
+        if (itemCount > 1)
+            holder.errorLogo.loadRes(R.drawable.reddit_broke)
+        else
+            holder.errorLogo.loadRes(R.drawable.reddit_slowpoke)
+
         if (errorMessage.isNotEmpty())
             holder.error.text = errorMessage
         rxViewClicks(position, post, holder.tryAgain)
+    }
+
+    private fun getThumbnail(model: PostData): String? {
+        var thumbnail: String? = null
+
+        thumbnail = model.preview?.images?.firstOrNull()?.source?.url
+
+        model.preview?.images?.firstOrNull()?.resolutions?.forEach {
+            if (it.height >= THUMBNAIL_WIDTH)
+                thumbnail = fromHtml(it.url).toString()
+        }
+
+        if (model.isVideo)
+            thumbnail = model.preview?.images?.firstOrNull()?.source?.url
+
+        return thumbnail ?: model.thumbnail
+    }
+
+    @SuppressWarnings("deprecation")
+    private fun fromHtml(html: String?): Spanned {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY)
+        } else {
+            Html.fromHtml(html)
+        }
     }
 
     private fun getScore(model: PostData): String = "${model.ups / 1000}k"

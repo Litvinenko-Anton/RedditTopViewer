@@ -52,10 +52,7 @@ fun ImageView.loadUrl(url: String?) {
 }
 
 fun ImageView.loadUrl(url: String?, requestOptions: RequestOptions) {
-    if (url != null)
-        Glide.with(context).load(url).apply(requestOptions).into(this)
-    else
-        setImageDrawable(null)
+    Glide.with(context).load(url).apply(requestOptions).into(this)
 }
 
 fun ImageView.loadRes(@RawRes @DrawableRes idRes: Int) {

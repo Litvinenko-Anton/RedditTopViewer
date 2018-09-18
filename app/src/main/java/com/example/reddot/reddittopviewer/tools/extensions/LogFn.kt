@@ -1,4 +1,4 @@
-package com.example.reddot.reddittopviewer.tools
+package com.example.reddot.reddittopviewer.tools.extensions
 
 import android.util.Log
 import com.example.reddot.reddittopviewer.BuildConfig
@@ -8,7 +8,7 @@ private const val MASSAGE_IS_NULL = "log massage == null"
 private val debug: Boolean = BuildConfig.DEBUG
 
 /**
- * View Functions
+ * Log functions for DEBUG
  */
 
 fun logD(message: String?) = logD(TAG, message)

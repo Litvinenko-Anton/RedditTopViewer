@@ -17,10 +17,4 @@ interface RedditApi {
             @Query("after") after: String? = null
     ): Flowable<Top>
 
-    @GET("top.json")
-    fun getTopSt(
-            @Query("limit") limit: Int,
-            @Query("after") after: String? = null
-    ): Flowable<String>
-
 }

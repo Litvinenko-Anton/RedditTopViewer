@@ -11,9 +11,6 @@ import io.reactivex.schedulers.Schedulers
 
 class RemoteRepositoryRetrofitImpl(private val appContext: Context, val api: RedditApi) : RemoteRepository {
 
-
-    override fun getTopSt(limit: Int): Flowable<String> = getBaseRequestObservable(api.getTopSt(limit))
-
     override fun getTopPosts(limit: Int): Flowable<Top> = getBaseRequestObservable(api.getTop(limit))
 
     override fun getTopPostsPagination(limit: Int, after: String?): Flowable<Top> = getBaseRequestObservable(api.getTop(limit, after))

@@ -6,9 +6,6 @@ import android.widget.Toast
 import com.example.reddot.reddittopviewer.App
 import com.example.reddot.reddittopviewer.BuildConfig
 
-val Context.customApplication: App
-    get() = this as App
-
 fun Context.showToast(@StringRes resId: Int) {
     Toast.makeText(this, resId, Toast.LENGTH_SHORT).show()
 }

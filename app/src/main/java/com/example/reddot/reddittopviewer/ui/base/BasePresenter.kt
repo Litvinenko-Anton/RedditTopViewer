@@ -3,7 +3,7 @@ package com.example.reddot.reddittopviewer.ui.base
 import com.arellomobile.mvp.MvpPresenter
 import com.example.reddot.reddittopviewer.di.InjectHelper
 import com.example.reddot.reddittopviewer.repository.RepositoryImp
-import com.example.reddot.reddittopviewer.tools.logD
+import com.example.reddot.reddittopviewer.tools.extensions.logD
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 

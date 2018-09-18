@@ -65,7 +65,7 @@ data class PostData(
         @SerializedName("is_crosspostable") val isCrosspostable: Boolean,
         @SerializedName("pinned") val pinned: Boolean,
         @SerializedName("over_18") val over18: Boolean,
-        @SerializedName("preview") val preview: Preview,
+        @SerializedName("preview") val preview: Preview?,
         @SerializedName("media_only") val mediaOnly: Boolean,
         @SerializedName("link_flair_template_id") val linkFlairTemplateId: Any?,
         @SerializedName("can_gild") val canGild: Boolean,

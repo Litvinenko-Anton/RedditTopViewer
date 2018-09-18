@@ -14,8 +14,6 @@ class RepositoryImp(private val remoteRepository: RemoteRepository,
      * REMOTE
      * */
 
-    override fun getTopSt(limit: Int): Flowable<String> = remoteRepository.getTopSt(limit)
-
     /**
      * First page
      * @param limit - page size

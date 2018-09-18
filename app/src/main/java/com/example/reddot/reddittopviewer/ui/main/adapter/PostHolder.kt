@@ -5,7 +5,7 @@ import android.view.View
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
-import kotlinx.android.synthetic.main.recycler_item_post_2.view.*
+import kotlinx.android.synthetic.main.recycler_item_post.view.*
 
 class PostHolder(view: View) : RecyclerView.ViewHolder(view) {
 
