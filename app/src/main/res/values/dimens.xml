@@ -11,6 +11,8 @@
     <dimen name="activity_padding_8">8dp</dimen>
     <dimen name="activity_padding_16">16dp</dimen>
     <dimen name="error_img_size">200dp</dimen>
+    <dimen name="post_height">400dp</dimen>
+    <dimen name="buttons_group_height">90dp</dimen>
 
 
 </resources>

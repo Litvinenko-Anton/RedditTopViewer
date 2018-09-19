@@ -3,7 +3,7 @@ package com.example.reddot.reddittopviewer.ui.base
 import com.arellomobile.mvp.MvpPresenter
 import com.example.reddot.reddittopviewer.di.InjectHelper
 import com.example.reddot.reddittopviewer.repository.RepositoryImp
-import com.example.reddot.reddittopviewer.tools.extensions.logD
+import com.example.reddot.reddittopviewer.tools.Constants.UNKNOWN_ERROR
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 
@@ -32,13 +32,11 @@ abstract class BasePresenter<view : BaseView> : MvpPresenter<view>() {
     }
 
     protected open fun onError(throwable: Throwable) {
-        logD("doOnError() -> ${throwable.message}")
         throwable.printStackTrace()
-        onError("")
+        onError(throwable.message ?: UNKNOWN_ERROR)
     }
 
     protected open fun onError(errorMessage: String) {
-        logD("onError() -> $errorMessage")
         viewState.hideProgress()
         viewState.responseError(errorMessage)
     }

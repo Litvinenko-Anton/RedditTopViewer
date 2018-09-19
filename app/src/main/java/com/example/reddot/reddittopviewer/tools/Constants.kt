@@ -11,4 +11,5 @@ object Constants {
     const val POST_MAX_COUNT = 50         // client that shows the top 50 entries
     const val POST_LIMIT = 10
     const val THUMBNAIL_WIDTH = 480
+    const val UNKNOWN_ERROR = "Unknown error"
 }
